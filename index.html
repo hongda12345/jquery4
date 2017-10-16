@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="jquery-3.2.1.js"></script>
+</head>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            #banner {
+                position: relative;
+                height: 454px;
+                width: 730px;
+                margin: 100px auto 0;
+            }
+            #banner-con li {
+                position: absolute;
+                left: 0;
+                top: 0;
+                /*opacity: 0;*/
+                display: none;
+            }
+            #banner-con li.show {
+                opacity: 1;
+                display: block;
+            }
+            #banner-con li img {
+                float: left;
+                height: 454px;
+                width: 730px;
+            }
+            #banner-num {
+                position: absolute;
+                right: 41%;
+                bottom: 20px;
+            }
+            #banner-num li {
+                float: left;
+                height: 20px;
+                width: 20px;
+                line-height: 20px;
+                font-size: 18px;
+                text-align: center;
+                border-radius: 20px;
+                color: #fff;
+                margin-right: 5px;
+                background: #333;
+                cursor: pointer;
+            }
+            #banner-num li.active {
+                background: red;
+            }
+            #banner-left {
+                position: absolute;
+                top: 200px;
+                left: 10px;
+                display: block;
+                height: 60px;
+                width: 20px;
+                font-size: 30px;
+                line-height: 60px;
+                text-align: center;
+                background: gray;
+                color: #fff;
+                cursor: pointer;
+                opacity: 0;
+            }
+            #banner-right {
+                position: absolute;
+                top: 200px;
+                right: 10px;
+                display: block;
+                height: 60px;
+                width: 20px;
+                font-size: 30px;
+                line-height: 60px;
+                text-align: center;
+                background: gray;
+                color: #fff;
+                cursor: pointer;
+                opacity: 0;
+            }	        
+    </style>
+<body>
+	<div id="banner">
+            <ul id="banner-con">
+                <li class="show"><a href="javascript:;"><img src="banner1.jpg"/></a></li>
+                <li><a href="javascript:;"><img src="banner2.jpg"/></a></li>
+                <li><a href="javascript:;"><img src="banner3.jpg"/></a></li>
+                <li><a href="javascript:;"><img src="banner4.jpg"/></a></li>
+                <li><a href="javascript:;"><img src="banner5.jpg"/></a></li>
+                <li><a href="javascript:;"><img src="banner6.jpg"/></a></li>
+            </ul>
+            <ul id="banner-num">
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+            </ul>
+            <span id="banner-left"><</span>
+            <span id="banner-right">></span>
+    </div>
+    <script>
+    	/*js原生方式*/
+    	       //      window.onload = function() {
+            //     var banner = document.getElementById('banner');
+            //         bannerCon = document.getElementById('banner-con'),
+            //         bannerConLis = bannerCon.children,
+            //         bannerNum = document.getElementById('banner-num'),
+            //         bannerNumLis = bannerNum.children,
+            //         bannerLeft = document.getElementById('banner-left'),
+            //         bannerRight = document.getElementById('banner-right'),
+            //         timer = null,
+            //         timer2 = null,
+            //         num = 0;
+            //     function move() {
+            //         clearInterval(timer);
+            //         for (var i = 0; i < bannerConLis.length; i++) {
+            //             bannerConLis[i].style.opacity = 0;
+            //             bannerConLis[i].style.display = 'none';
+            //             bannerNumLis[i].style.background = '#ccc'
+            //         }
+            //         bannerConLis[num].style.display = 'block';
+            //         bannerNumLis[num].style.background = 'red';
+            //         var index = 0;
+            //         timer = setInterval(function() {
+            //             index += 0.02;
+            //             if(index >= 1) {
+            //                 index = 1;
+            //                 clearInterval(timer);
+            //             }
+            //             bannerConLis[num].style.opacity = index;
+            //         },20);
+            //     }
+            //     function automove() {
+            //         num ++;
+            //         if(num >= bannerConLis.length) {
+            //             num = 0;
+            //         }
+            //         move();
+            //     }
+            //     timer2 = setInterval(automove,2000);//进入页面执行
+            //     //鼠标移上左右侧按钮显示效果
+            //     banner.onmouseenter = function() {
+            //         bannerLeft.style.opacity = 1;
+            //         bannerRight.style.opacity = 1;
+            //     }
+            //     banner.onmouseleave = function() {
+            //         bannerLeft.style.opacity = 0;
+            //         bannerRight.style.opacity = 0;
+            //     }
+            //     for (var i = 0; i < bannerNumLis.length; i++) {
+            //         bannerNumLis[i].index = i;
+            //         bannerNumLis[i].onmouseover = function() {
+            //             clearInterval(timer2);
+            //             num = this.index;
+            //             move();
+            //         }
+            //         // bannerNumLis[i].onmouseout = function() {
+            //         //     timer2 = setInterval(automove,2000);
+            //         // }
+            //     }
+            //     bannerRight.onclick = function() {
+            //         clearInterval(timer2);
+            //         num ++;
+            //         if(num >= bannerConLis.length) {
+            //             num = 0;
+            //         }
+            //         move();
+            //         // timer2 = setInterval(automove,2000);
+            //     }
+            //     bannerLeft.onclick = function() {
+            //         clearInterval(timer2);
+            //         num --;
+            //         if(num < 0) {
+            //             num = bannerConLis.length - 1;
+            //         }
+            //         move();
+            //         // timer2 = setInterval(automove,2000);
+            //     }
+            //     banner.onmouseover=function(){
+            //     	clearInterval(timer2);
+            //     }
+            //     banner.onmouseout=function(){
+            //     	timer2 = setInterval(automove,2000);
+            //     }
+            // }
+        /*jq实现方式*/
+        $(function() {
+                $('#banner').mouseenter(function() {
+                    $('#banner-left').css('opacity','1');
+                    $('#banner-right').css('opacity','1');
+                });
+                $('#banner').mouseleave(function() {
+                    $('#banner-left').css('opacity','0');
+                    $('#banner-right').css('opacity','0');
+                });
+                var n = 0;
+                $('#banner-right').click(function() {
+                    clearInterval(timer);
+                    n ++;
+                    if (n >= $('#banner-con li').length) {
+                        n = 0;
+                    }
+                    $('#banner-con li').eq(n).fadeIn(800).siblings().hide();
+                    $('#banner-num li').eq(n).addClass('active').siblings().removeClass('active');
+                    // Move();
+                });
+                $('#banner-left').click(function() {
+                    clearInterval(timer);
+                    n --;
+                    if (n < 0) {
+                        n = $('#banner-con li').length - 1;
+                    }
+                    $('#banner-con li').eq(n).fadeIn(800).siblings().hide();
+                    $('#banner-num li').eq(n).addClass('active').siblings().removeClass('active');
+                    // Move();
+                });
+                $('#banner-num li').mouseenter(function() {
+                    clearInterval(timer);
+                    n=$('#banner-num li').index(this);
+                    $('#banner-con li').eq(n).fadeIn(800).siblings().hide();
+                    $('#banner-num li').eq(n).addClass('active').siblings().removeClass('active');
+                    Move();
+                });
+                $('#banner').mouseover(function(){
+                	clearInterval(timer);
+                })
+                $('#banner').mouseout(function(){
+                	timer = setInterval(function() {
+                        n ++;
+                        if(n >= $('#banner-con li').length) {
+                            n = 0;
+                        }
+                        $('#banner-con li').eq(n).fadeIn(800).siblings().hide();
+                        $('#banner-num li').eq(n).addClass('active').siblings().removeClass('active');
+                    },2000);
+                })
+                var timer = null;
+                function Move() {
+                    clearInterval(timer);
+                    timer = setInterval(function() {
+                        n ++;
+                        if(n >= $('#banner-con li').length) {
+                            n = 0;
+                        }
+                        $('#banner-con li').eq(n).fadeIn(800).siblings().hide();
+                        $('#banner-num li').eq(n).addClass('active').siblings().removeClass('active');
+                    },2000);
+                }
+                Move();
+            });
+    </script>
+</body>
+</html>
